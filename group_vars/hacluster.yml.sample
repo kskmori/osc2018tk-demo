@@ -1,0 +1,4 @@
+INTERFACES:
+ - { bindnetaddr: 192.168.33.0, mcastaddr: 239.255.1.1, mcastport: 5405 }
+
+SYSLOG_FACILITY: daemon
