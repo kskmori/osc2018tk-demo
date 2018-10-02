@@ -2,3 +2,14 @@ INTERFACES:
  - { bindnetaddr: 192.168.33.0, mcastaddr: 239.255.1.1, mcastport: 5405 }
 
 SYSLOG_FACILITY: daemon
+
+# Bundle kube-demo variables
+BUNDLE_PG_CONFIG:
+  ip-range-start: 192.168.33.200
+  host-interface: eth1
+  host-netmask: 24
+
+BUNDLE_HTTPD_CONFIG:
+  ip-range-start: 192.168.33.210
+  host-interface: eth1
+  host-netmask: 24

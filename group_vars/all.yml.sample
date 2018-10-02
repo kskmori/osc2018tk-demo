@@ -13,6 +13,9 @@ INSECURE_REGISTRY: 192.168.33.10:5000
 NFS_SERVER: 192.168.33.10
 NFS_EXPORT_DIR: /home/nfs
 
+# working directory for the demo apps
+KUBE_WORK_DIR: /tmp/kube-work
+
 # proxy configuration; define if necessary
 #  change no_proxy accordingly for the pod network and the host network
 #  10.96.0.0/12 is used by kubeadm internally. (see --service-cidr)
@@ -31,5 +34,5 @@ NFS_EXPORT_DIR: /home/nfs
 #USE_PROXY:
 #  - http_proxy=http://xxx.xxx.xxx.xxx:8080/
 #  - https_proxy=http://xxx.xxx.xxx.xxx:8080/
-#  - no_proxy=localhost,127.0.0.1,10.96.0.0/12,10.244.0.0/16,192.168.122.61,192.168.122.62,192.168.122.69
+#  - no_proxy=localhost,127.0.0.1,10.96.0.0/12,10.244.0.0/16,192.168.33.10,192.168.33.101,192.168.33.102
 
