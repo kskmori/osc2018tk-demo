@@ -7,10 +7,12 @@ else
  USE_PV=0
 fi
 
-run_cmd() {
-  echo -n "# "
+msg() {
+  echo -n "## $@"
   read line
-  #echo -en "\033[0m"
+}
+
+run_cmd() {
   if [ $USE_PV -eq 1 ]; then
     echo -n "# $@" | pv -qL $[20+$RANDOM%5]
   else
