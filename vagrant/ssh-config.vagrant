@@ -1,0 +1,32 @@
+Host master
+  HostName 192.168.33.10
+  User vagrant
+  Port 22
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile /osc2018tk-demo/vagrant/.vagrant/machines/master/virtualbox/private_key
+  IdentitiesOnly yes
+  LogLevel FATAL
+
+Host worker1
+  HostName 192.168.33.101
+  User vagrant
+  Port 22
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile /osc2018tk-demo/vagrant/.vagrant/machines/worker1/virtualbox/private_key
+  IdentitiesOnly yes
+  LogLevel FATAL
+
+Host worker2
+  HostName 192.168.33.102
+  User vagrant
+  Port 22
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile /osc2018tk-demo/vagrant/.vagrant/machines/worker2/virtualbox/private_key
+  IdentitiesOnly yes
+  LogLevel FATAL

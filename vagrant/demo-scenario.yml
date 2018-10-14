@@ -1,0 +1,23 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: enable epel
+      yum:
+        name: epel-release
+    - name: install pv
+      yum:
+        name: pv
+
+    - name: install ansible on master
+      yum:
+        name: ansible
+      when: inventory_hostname == "master"
+
+    - file:
+        path: /root/.ssh
+        state: directory
+        mode: 0700
+    - name: ssh login between VMs
+      copy:
+        src: ./ssh-config.vagrant
+        dest: /root/.ssh/config

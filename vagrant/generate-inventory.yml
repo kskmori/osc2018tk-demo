@@ -1,7 +1,7 @@
 #https://qiita.com/janus_wel/items/faac04f2ec2cdb50d074
 
 --- # generate ansible inventory file with Vagrant
-- hosts: default
+- hosts: all
   tasks:
     - name: ping
       action: ping

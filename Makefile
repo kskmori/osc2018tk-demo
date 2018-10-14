@@ -11,11 +11,10 @@ bootstrap:
 	(cd ansible-bundle-demo; git pull)
 
 bootstrap-vagrant: bootstrap
+	(cd vagrant; vagrant plugin install vagrant-sshfs)
 	(cd vagrant; vagrant up)
 	cp hosts.vagrant.sample hosts
-	cat vagrant/.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory >> hosts
 	cp ansible.cfg.vagrant.sample ansible.cfg
-	echo "inventory = $$(pwd)/hosts" >> ansible.cfg
 	cp group_vars/all.yml.sample group_vars/all.yml
 	cp group_vars/hacluster.yml.sample group_vars/hacluster.yml
 
