@@ -38,8 +38,26 @@ Vagrant.configure("2") do |config|
     end
   end
 
+  # enable proxy during the provisioning
+  if ENV['http_proxy']
+    config.vm.provision "shell",
+      inline: "echo 'export http_proxy=" + ENV['http_proxy'] + "' >>/etc/environment"
+    config.vm.provision "shell",
+      inline: "echo 'export https_proxy=" + ENV['https_proxy'] + "' >>/etc/environment"
+  end
+
   # for sharing demo scenario
-  config.vm.synced_folder "../", "/osc2018tk-demo", type: "sshfs"
+  #   installing sshfs fails on the proxy environment because
+  #   it runs before proxy settings in the provisioning
+  #   workaround is to use rsync on the proxy environment for now
+  #   NOTE: you need to run 'vagrant rsync' after provision to sync the generated private keys
+  if ENV['http_proxy']
+    config.vm.synced_folder "../", "/osc2018tk-demo", type: "rsync"
+    # .vagrant is always excluded but we intentionally sync the private keys for ssh access
+    config.vm.synced_folder "./.vagrant", "/osc2018tk-demo/vagrant/.vagrant", type: "rsync"
+  else
+    config.vm.synced_folder "../", "/osc2018tk-demo", type: "sshfs"
+  end
 
   # Provision
   config.vm.provision "ansible" do |ansible|
