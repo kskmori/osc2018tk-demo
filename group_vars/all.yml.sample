@@ -19,6 +19,12 @@ KUBE_WORK_DIR: /tmp/kube-work
 APPS_POSTGRES_IMAGE: "{{ INSECURE_REGISTRY }}/pcmkdemo/postgres:0.1"
 APPS_HTTPD_IMAGE: "{{ INSECURE_REGISTRY }}/pcmkdemo/httpd:0.1"
 
+# VirtualBMC configuration
+# virtualenv directory path
+VBMC_VENV_DIR: ./venv-vbmc
+# Network interface for IPMI ports
+VBMC_IPMI_IF: vboxnet0
+
 # proxy configuration; define if necessary
 #  change no_proxy accordingly for the pod network and the host network
 #  10.96.0.0/12 is used by kubeadm internally. (see --service-cidr)

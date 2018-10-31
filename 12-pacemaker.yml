@@ -1,0 +1,9 @@
+- import_playbook: ./ansible-pacemaker/00-download.yml
+- import_playbook: ./ansible-pacemaker/10-pacemaker-install.yml
+- import_playbook: ./ansible-pacemaker/12-pacemaker-stonith-install.yml
+# --tags=init-cib,start-wait,all option is required when run this whole playbook
+- import_playbook: ./ansible-pacemaker/20-pacemaker-start.yml
+
+- import_playbook: ./ansible-bundle-demo/11-pacemaker-remote-init.yml
+- import_playbook: ./ansible-bundle-demo/31-bundle-kube-demo-prepare.yml
+- import_playbook: ./ansible-bundle-demo/33-bundle-kube-demo-deploy.yml

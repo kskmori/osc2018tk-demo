@@ -13,6 +13,8 @@ bootstrap-repo:
 	(cd ansible-pacemaker; git pull)
 	[ -d ansible-bundle-demo ] || git clone https://github.com/kskmori/ansible-bundle-demo
 	(cd ansible-bundle-demo; git pull)
+	[ -d ansible-virtualbmc ] || git clone https://github.com/kskmori/ansible-virtualbmc
+	(cd ansible-virtualbmc; git pull)
 
 # prepare vagrant guests
 #  sshfs can be omitted if you don't need to share the demo senario

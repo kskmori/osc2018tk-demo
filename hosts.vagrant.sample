@@ -23,6 +23,11 @@ worker2 NODE_IP=192.168.33.102
 worker1
 worker2
 
+# ansible-virtualbmc configuration
+[hacluster-vbmc]
+worker1 IPMI_IP=192.168.33.91 IPMI_USER=pacemaker IPMI_PASS=pacemakerpass1
+worker2 IPMI_IP=192.168.33.92 IPMI_USER=pacemaker IPMI_PASS=pacemakerpass1
+
 # Vagrant configuration
 [hostvars-vagrant]
 master ansible_host=192.168.33.10 ansible_user='vagrant' ansible_ssh_private_key_file='./vagrant/.vagrant/machines/master/virtualbox/private_key'
