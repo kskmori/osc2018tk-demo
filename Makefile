@@ -1,10 +1,17 @@
 all:
-	@echo make bootstrap
-	@echo or 'make bootstrap-repo' and configure your VMs, hosts and group_vars manually
+	@echo "make bootstrap"
+	@echo "  Create Vagrant VMs and provisioning configuration."
+	@echo "  or 'make bootstrap-repo' and configure your VMs, hosts and group_vars manually"
+	@echo
+	@echo "make build"
+	@echo "  Provision the demo environment using the playbooks."
+	@echo
+	@echo "make restart"
+	@echo "  Restart the demo after the host machine was rebooted."
 
 bootstrap: bootstrap-repo bootstrap-vagrant config config-proxy
-	@echo Done.
-
+	@echo "Done."
+	@echo "Next, run 'make build'"
 
 bootstrap-repo:
 	[ -d ansible-kubernetes-demo ] || git clone https://github.com/kskmori/ansible-kubernetes-demo
@@ -41,6 +48,23 @@ config-proxy:
 	  fi \
 	)
 
+# add ssh config for Vagrant VMs if you prefer
+config-ssh:
+	[ -d $$HOME/.ssh ] && ! grep '^Host master' $$HOME/.ssh/config >/dev/null 2>/dev/null && (cd vagrant; vagrant ssh-config >>$$HOME/.ssh/config) || true
+
+
+build:
+	ansible-playbook 10-kubernetes.yml
+	ansible-playbook 11-virtualbmc.yml
+	ansible-playbook 12-pacemaker.yml --tags=init-cib,start-wait,all
+	@echo Done.
+
+restart:
+	(cd vagrant; vagrant reload)
+	ansible-playbook ./ansible-virtualbmc/20-vbmc-start.yml
+	ansible-playbook ./ansible-pacemaker/20-pacemaker-start.yml
+
+
 clean:
-	@rm -f *.retry
+	@find . -name '*.retry' -exec rm {} \;
 	@find . -name '*~' -exec rm {} \;

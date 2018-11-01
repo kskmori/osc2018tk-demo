@@ -52,7 +52,5 @@ make bootstrap
 
  * Build the demo using the playbooks
 ```
-ansible-playbook 10-kubernetes.yml
-ansible-playbook 11-virtualbmc.yml
-ansible-playbook 12-pacemaker.yml
+make build
 ```
