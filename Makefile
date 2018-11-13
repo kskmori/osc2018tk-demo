@@ -26,10 +26,14 @@ bootstrap-repo:
 # prepare vagrant guests
 #  sshfs can be omitted if you don't need to share the demo senario
 #  between host and guests
+#  vagrant reload is to enable deffered synced_folder (see vagrant/Vagrantfile)
 bootstrap-vagrant:
 	(cd vagrant ;\
 	 vagrant plugin install vagrant-sshfs ;\
-	 vagrant up \
+	 vagrant up ;\
+	 if [ "$$http_proxy" ]; then \
+	   vagrant reload ;\
+	 fi \
 	)
 
 config:

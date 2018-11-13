@@ -18,6 +18,7 @@ Vagrant.configure("2") do |config|
     master.vm.provider :virtualbox do |v|
       v.name = "master"
     end
+    config_synced_folder("master", master)
   end
 
   config.vm.define "worker1" do |worker1|
@@ -27,6 +28,7 @@ Vagrant.configure("2") do |config|
     worker1.vm.provider :virtualbox do |v|
       v.name = "worker1"
     end
+    config_synced_folder("worker1", worker1)
   end
 
   config.vm.define "worker2" do |worker2|
@@ -36,8 +38,28 @@ Vagrant.configure("2") do |config|
     worker2.vm.provider :virtualbox do |v|
       v.name = "worker2"
     end
+    config_synced_folder("worker2", worker2)
   end
 
+  # synced_folder for sharing demo scenario
+  #   Installing sshfs fails on the proxy environment because
+  #   it runs before configuring proxy settings in the provision
+  #   Workaround is to defer enabling synced_folder until the privision is done
+  #   on the proxy environment.
+  #   This is a trick described in below:
+  #    https://github.com/hashicorp/vagrant/issues/936#issuecomment-288063253
+  #    https://stackoverflow.com/questions/24855635/check-if-vagrant-provisioning-has-been-done
+  #
+  #   NOTE: you need to run 'vagrant reload' once on the proxy environment
+  def config_synced_folder(vm_name, config)
+    if ENV['http_proxy'] and not File.exist?(".vagrant/machines/#{vm_name}/virtualbox/action_provision")
+      # defer it if behind proxy and not provisioned yet
+      return
+    end
+    config.vm.synced_folder "../", "/osc2018tk-demo", type: "sshfs"
+  end
+
+  # Provision
   # enable proxy during the provisioning
   if ENV['http_proxy']
     config.vm.provision "shell",
@@ -46,20 +68,6 @@ Vagrant.configure("2") do |config|
       inline: "echo 'export https_proxy=" + ENV['https_proxy'] + "' >>/etc/environment"
   end
 
-  # for sharing demo scenario
-  #   installing sshfs fails on the proxy environment because
-  #   it runs before proxy settings in the provisioning
-  #   workaround is to use rsync on the proxy environment for now
-  #   NOTE: you need to run 'vagrant rsync' after provision to sync the generated private keys
-  if ENV['http_proxy']
-    config.vm.synced_folder "../", "/osc2018tk-demo", type: "rsync"
-    # .vagrant is always excluded but we intentionally sync the private keys for ssh access
-    config.vm.synced_folder "./.vagrant", "/osc2018tk-demo/vagrant/.vagrant", type: "rsync"
-  else
-    config.vm.synced_folder "../", "/osc2018tk-demo", type: "sshfs"
-  end
-
-  # Provision
   config.vm.provision "ansible" do |ansible|
     ansible.host_key_checking = false
     # at least one playbook needs to be run to generate ssh keys for ansible
