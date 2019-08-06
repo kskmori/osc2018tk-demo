@@ -15,13 +15,13 @@ bootstrap: bootstrap-repo bootstrap-vagrant config config-proxy
 
 bootstrap-repo:
 	[ -d ansible-kubernetes-demo ] || git clone https://github.com/kskmori/ansible-kubernetes-demo
-	(cd ansible-kubernetes-demo; git pull)
+	(cd ansible-kubernetes-demo; git checkout osc2018tk-demo-20181027)
 	[ -d ansible-pacemaker ] || git clone https://github.com/kskmori/ansible-pacemaker
-	(cd ansible-pacemaker; git pull)
+	(cd ansible-pacemaker; git checkout branch-1.1.19-1.1)
 	[ -d ansible-bundle-demo ] || git clone https://github.com/kskmori/ansible-bundle-demo
-	(cd ansible-bundle-demo; git pull)
+	(cd ansible-bundle-demo; git checkout osc2018tk-demo-20181027)
 	[ -d ansible-virtualbmc ] || git clone https://github.com/kskmori/ansible-virtualbmc
-	(cd ansible-virtualbmc; git pull)
+	(cd ansible-virtualbmc; git checkout osc2018tk-demo-20181027)
 
 # prepare vagrant guests
 #  sshfs can be omitted if you don't need to share the demo senario
