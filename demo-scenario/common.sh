@@ -6,6 +6,9 @@ if [ $? -eq 0 ]; then
 else
  USE_PV=0
 fi
+if [ "$1" = "-f" ]; then
+ USE_PV=0
+fi
 
 msg() {
   echo -n "## $@"
