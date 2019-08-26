@@ -59,13 +59,15 @@ config-ssh:
 
 build:
 	ansible-playbook 10-kubernetes.yml
-	ansible-playbook 11-virtualbmc.yml
+	@echo Local privilege escalation required. Enter sudo password if prompted.
+	sudo ansible-playbook 11-virtualbmc.yml
 	ansible-playbook 12-pacemaker.yml --tags=init-cib,start-wait,all
 	@echo Done.
 
 restart:
 	(cd vagrant; vagrant reload)
-	ansible-playbook ./ansible-virtualbmc/20-vbmc-start.yml
+	@echo Local privilege escalation required. Enter sudo password if prompted.
+	sudo ansible-playbook ./ansible-virtualbmc/20-vbmc-start.yml
 	ansible-playbook ./ansible-pacemaker/20-pacemaker-start.yml
 
 
