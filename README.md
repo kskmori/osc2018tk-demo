@@ -68,9 +68,27 @@ make build
 make config-ssh
 ```
 
+## Related Repositories
+
+ * Kubernetes installation
+   * https://github.com/kskmori/ansible-kubernetes-demo
+ * Pacemaker installation
+   * https://github.com/kskmori/ansible-pacemaker
+ * Pacemaker bundle sample configurations
+   * https://github.com/kskmori/ansible-bundle-demo
+ * virtualbmc installation
+   * https://github.com/kskmori/ansible-virtualbmc
+ * virtualbmc (patched version) - IPMI fencing for VirtualBox VMs
+   * https://github.com/kskmori/virtualbmc/tree/devel-vbox-1.1.0
+
 ## Presentation Scenario
 
 ### Preparation before start ###
+ * restart the demo environment (if not started yet)
+```
+## on the host node
+make restart
+```
  * open terminal windows
    * ex. 4 terminals
      * T1. Pacemaker status terminal : Demo 2
@@ -78,17 +96,12 @@ make config-ssh
      * T3. operation terminal : Demo 1 & Demo 2
      * T4. operation terminal on the host node
      * (terminal T3. & T4. can be placed with overwrapped, minimum lines)
-   * login to the master node on terminal T1., T2. & T3.
+   * login to the master node and become root on terminal T1., T2. & T3.
 ```
 ## T1: T2: T3:
 ssh master
 sudo -s
 cd /osc2018tk-demo/
-```
- * restart the demo environment (if not started yet)
-```
-## T4: on the host node
-make restart
 ```
  * make sure all Pacemaker resources are running (location does not matter here)
 ```
