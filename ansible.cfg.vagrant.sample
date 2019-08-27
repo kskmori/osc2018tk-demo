@@ -6,6 +6,12 @@ stdout_callback = yaml
 # alternatively, set environment variable
 # export ANSIBLE_STDOUT_CALLBACK=yaml
 
+retry_files_enabled = False
+# suppress depricate warnings on ansible-2.8+
+#  see. https://docs.ansible.com/ansible/latest/reference_appendices/config.html#transform-invalid-group-chars
+force_valid_group_names = ignore
+
+
 # Vagrant ssh config
 #  see also hosts.vagrant.sample
 remote_user = vagrant
