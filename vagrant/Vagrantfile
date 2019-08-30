@@ -3,12 +3,17 @@
 
 Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
-  config.vm.box_version = "1804.02"
+  config.vm.box_version = "1905.01"
 
   # VirtualBox
   config.vm.provider :virtualbox do |v|
     #v.customize ["modifyvm", :id, "--memory", "2048"]
     v.memory = 2048
+    v.cpus = 2
+    v.customize ["modifyvm", :id, "--ioapic", "on"]
+    # I/O APIC needs to be enabled when CPUs >= 2
+    #  https://www.virtualbox.org/manual/ch03.html#settings-motherboard
+    #  https://qiita.com/d_nishiyama85/items/c50c95795865ae7f714b
   end
 
   config.vm.define "master" do |master|

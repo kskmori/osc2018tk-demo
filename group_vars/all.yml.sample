@@ -43,5 +43,5 @@ VBMC_IPMI_IF: vboxnet0
 #USE_PROXY:
 #  - http_proxy=http://xxx.xxx.xxx.xxx:8080/
 #  - https_proxy=http://xxx.xxx.xxx.xxx:8080/
-#  - no_proxy=localhost,127.0.0.1,10.96.0.0/12,10.244.0.0/16,192.168.33.10,192.168.33.101,192.168.33.102
+#  - no_proxy=localhost,127.0.0.1,10.0.2.15,10.96.0.0/12,10.244.0.0/16,192.168.33.10,192.168.33.101,192.168.33.102
 
